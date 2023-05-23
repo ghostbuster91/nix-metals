@@ -7,7 +7,7 @@ let
   jq = "${pkgs.jq}/bin/jq";
 
   src = pkgs.writeShellScript name ''
-    NEW=$(${cl} https://scalameta.org/metals/latests.json | ${jq} ".snapshot" | awk -F '"' '{print $2}')
+    NEW=$(${cl} https://scalameta.org/metals/latests.json | ${jq} ".release" | awk -F '"' '{print $2}')
     OLD=$(awk -F'"' '/"version" = /{print $4}' ${file})
 
     echo "Old version: $OLD"

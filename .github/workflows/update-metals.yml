@@ -1,4 +1,4 @@
-name: "Update Metals snapshot"
+name: "Update Metals"
 
 on:
   schedule:
@@ -29,11 +29,11 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           token: ${{ secrets.REPO_GITHUB_TOKEN }}
           base: main
-          branch: update/metals-snapshot-${{ steps.fetcher.outputs.version }}
+          branch: update/metals-${{ steps.fetcher.outputs.version }}
           delete-branch: true
           commit-message: "Update Metals to ${{ steps.fetcher.outputs.version }}"
           title: "Update metals to ${{ steps.fetcher.outputs.version }}"
           body: |
             Update metals to version `${{ steps.fetcher.outputs.version }}`. See https://scalameta.org/metals/latests.json
           labels: |
-            metals-snapshot-update
+            metals-release-update
