@@ -1,0 +1,39 @@
+name: "Update Metals snapshot"
+
+on:
+  schedule:
+    - cron: "0 8 * * 0"
+  workflow_dispatch:
+
+jobs:
+  fetcher:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Install Nix ❄️"
+        uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+      - name: "Fetch latest metals"
+        id: fetcher
+        run: nix run .#update-metals
+
+      - name: "Create pull request"
+        uses: peter-evans/create-pull-request@v4.2.3
+        with:
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          token: ${{ secrets.REPO_GITHUB_TOKEN }}
+          base: main
+          branch: update/metals-snapshot-${{ steps.fetcher.outputs.version }}
+          delete-branch: true
+          commit-message: "Update Metals to ${{ steps.fetcher.outputs.version }}"
+          title: "Update metals to ${{ steps.fetcher.outputs.version }}"
+          body: |
+            Update metals to version `${{ steps.fetcher.outputs.version }}`. See https://scalameta.org/metals/latests.json
+          labels: |
+            metals-snapshot-update
