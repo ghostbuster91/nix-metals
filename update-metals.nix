@@ -1,14 +1,13 @@
-{ pkgs, isRelase, ... }:
+{ pkgs, ... }:
 let
   cl = "${pkgs.curl}/bin/curl";
   rg = "${pkgs.ripgrep}/bin/rg";
   file = "metals-lock.nix";
   name = "metals-updater-script";
   jq = "${pkgs.jq}/bin/jq";
-  channel = if isRelase then ".release" else ".snapshot";
 
   src = pkgs.writeShellScript name ''
-    NEW=$(${cl} https://scalameta.org/metals/latests.json | ${jq} "$channel" | awk -F '"' '{print $2}')
+    NEW=$(${cl} https://scalameta.org/metals/latests.json | ${jq} ".snapshot" | awk -F '"' '{print $2}')
     OLD=$(awk -F'"' '/"version" = /{print $4}' ${file})
 
     echo "Old version: $OLD"
