@@ -22,7 +22,7 @@ jobs:
 
       - name: "Fetch latest metals - snapshot"
         id: fetcher
-        run: nix run .#update-metals-snapshot
+        run: nix run .#update-metals
 
       - name: "Create pull request - snapshot"
         uses: peter-evans/create-pull-request@v4.2.3

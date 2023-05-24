@@ -21,8 +21,7 @@
             metals = metalsBuilder {
               inherit (metalsLock) version outputHash;
             };
-            update-metals = import ./update-metals.nix { inherit pkgs; isRelase = true; };
-            update-metals-snapshot = import ./update-metals.nix { inherit pkgs; isRelase = false; };
+            update-metals = import ./update-metals.nix { inherit pkgs; };
           };
         }
       );
