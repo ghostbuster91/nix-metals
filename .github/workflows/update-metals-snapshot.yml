@@ -1,4 +1,4 @@
-name: "Update Metals"
+name: "Update Metals snapshot"
 
 on:
   schedule:
@@ -9,7 +9,9 @@ jobs:
   fetcher:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Git checkout
+        uses: actions/checkout@v2
+        with: { ref: nightly }
 
       - name: "Install Nix ❄️"
         uses: cachix/install-nix-action@v18
@@ -18,29 +20,9 @@ jobs:
             substituters = https://cache.nixos.org/
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
-      - name: "Fetch latest metals"
-        id: fetcher
-        run: nix run .#update-metals
-
-      - name: "Create pull request"
-        uses: peter-evans/create-pull-request@v4.2.3
-        with:
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          token: ${{ secrets.REPO_GITHUB_TOKEN }}
-          base: stable
-          branch: update/metals-${{ steps.fetcher.outputs.version }}
-          delete-branch: true
-          commit-message: "Update Metals to ${{ steps.fetcher.outputs.version }}"
-          title: "Update metals to ${{ steps.fetcher.outputs.version }}"
-          body: |
-            Update metals to version `${{ steps.fetcher.outputs.version }}`. See https://scalameta.org/metals/latests.json
-          labels: |
-            metals-release-update
-
       - name: "Fetch latest metals - snapshot"
         id: fetcher
-        run: nix run .#update-metals
+        run: nix run .#update-metals-snapshot
 
       - name: "Create pull request - snapshot"
         uses: peter-evans/create-pull-request@v4.2.3
