@@ -29,7 +29,7 @@ let
 
       sed -i "s|$OLD_HASH|$NEW_HASH|g" ${file}
 
-      echo "metals_version=$NEW" >> $GITHUB_OUTPUT
+      echo "version=$NEW" >> $GITHUB_OUTPUT
     else
       echo "Versions are identical, aborting."
     fi
