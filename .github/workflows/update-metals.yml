@@ -39,7 +39,7 @@ jobs:
             metals-release-update
 
       - name: "Fetch latest metals - snapshot"
-        id: fetcher
+        id: upate
         run: nix run .#update-metals
 
       - name: "Create pull request - snapshot"
