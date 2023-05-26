@@ -37,23 +37,3 @@ jobs:
             Update metals to version `${{ steps.fetcher.outputs.version }}`. See https://scalameta.org/metals/latests.json
           labels: |
             metals-release-update
-
-      - name: "Fetch latest metals - snapshot"
-        id: upate
-        run: nix run .#update-metals
-
-      - name: "Create pull request - snapshot"
-        uses: peter-evans/create-pull-request@v4.2.3
-        with:
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          token: ${{ secrets.REPO_GITHUB_TOKEN }}
-          base: nightly
-          branch: update/metals-snapshot-${{ steps.fetcher.outputs.version }}
-          delete-branch: true
-          commit-message: "Update Metals to ${{ steps.fetcher.outputs.version }}"
-          title: "Update metals to ${{ steps.fetcher.outputs.version }}"
-          body: |
-            Update metals to version `${{ steps.fetcher.outputs.version }}`. See https://scalameta.org/metals/latests.json
-          labels: |
-            metals-snapshot-update
