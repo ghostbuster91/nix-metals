@@ -31,7 +31,8 @@ pkgs.stdenv.mkDerivation rec {
     mkdir -p $out/bin
 
     makeWrapper ${pkgs.jre}/bin/java $out/bin/metals \
-      --add-flags "${extraJavaOpts} -cp $CLASSPATH scala.meta.metals.Main"
+      --add-flags "${extraJavaOpts} -cp $CLASSPATH" \
+      --append-flags "scala.meta.metals.Main"
   '';
 
   meta = with pkgs.lib; {
