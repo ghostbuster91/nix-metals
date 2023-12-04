@@ -1,5 +1,5 @@
 {
-  description = "Smithy Language Server";
+  description = "Metals, Scala language server";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
