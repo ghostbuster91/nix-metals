@@ -1,7 +1,7 @@
 # Nix metals
 
 ![ci-badge](https://img.shields.io/static/v1?label=Built%20with&message=nix&color=blue&style=flat&logo=nixos&link=https://nixos.org&labelColor=111212)
-[![built with garnix](https://img.shields.io/endpoint?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fghostbuster91%2Fnix-metals%3Fbranch%3Dstable)](https://garnix.io)
+[![built with garnix](https://img.shields.io/endpoint?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fghostbuster91%2Fnix-metals%3Fbranch%3Dnightly)](https://garnix.io)
 
 Expose metals as a nix derivation
 
