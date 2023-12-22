@@ -1,6 +1,7 @@
 { pkgs, ... }:
 { version, outputHash }:
 
+# based on https://github.com/gvolpe/nix-config/blob/2761969d7db588e2c839d613abe88dc9188c5ffa/home/programs/neovim-ide/update-metals.nix#L6
 pkgs.stdenv.mkDerivation rec {
   pname = "metals";
   inherit version;
