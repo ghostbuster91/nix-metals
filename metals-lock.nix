@@ -1,4 +1,4 @@
 {
-  "version" = "1.3.1+27-5b582c65-SNAPSHOT";
-  "outputHash" = "sha256-MI/vlGi8+oF7wcIlIJ4czy/EPATEsEk1hy2fSrJKWyQ=";
+  "version" = "1.3.1+49-e292d678-SNAPSHOT";
+  "outputHash" = "sha256-htbXEBH9SFnrCLRF5HtI7CdZtn9YEJMX/qMo5G/C+9I=";
 }
