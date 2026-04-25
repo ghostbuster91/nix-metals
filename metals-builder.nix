@@ -21,7 +21,7 @@ pkgs.stdenv.mkDerivation rec {
     outputHashAlgo = "sha256";
   };
 
-  nativeBuildInputs = with pkgs; [ makeWrapper setJavaClassPath ];
+  nativeBuildInputs = with pkgs; [ setJavaClassPath ];
   buildInputs = [ deps ];
 
   dontUnpack = true;
@@ -31,9 +31,29 @@ pkgs.stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
 
-    makeWrapper ${pkgs.jre}/bin/java $out/bin/metals \
-      --add-flags "${extraJavaOpts} -cp $CLASSPATH" \
-      --append-flags "scala.meta.metals.Main"
+    cat > $out/bin/metals <<EOF
+    #!${pkgs.runtimeShell}
+    set -eu
+
+    java_args="${extraJavaOpts}"
+    app_args=""
+
+    while [ "$#" -gt 0 ]; do
+      case "$1" in
+        -D*|--add-opens=*|--add-exports=*|-X*|-XX:*|-XX+*|-agentlib:*|-javaagent:*|-verbose*|-ea|-da|-esa|-dsa)
+          java_args="$java_args '$1'"
+          ;;
+        *)
+          app_args="$app_args '$1'"
+          ;;
+      esac
+      shift
+    done
+
+    eval "exec ${pkgs.jre}/bin/java $java_args -cp '$CLASSPATH' scala.meta.metals.Main $app_args"
+    EOF
+
+    chmod +x $out/bin/metals
   '';
 
   meta = with pkgs.lib; {
