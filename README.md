@@ -1,5 +1,10 @@
 # Nix metals
 
+> [!WARNING]
+> **This project is deprecated and no longer maintained.**
+>
+> Please migrate to [scala-cli-nix](https://github.com/scala-nix/scala-cli-nix/), a generic Nix wrapper for JVM applications (including Metals) that supersedes this project.
+
 ![ci-badge](https://img.shields.io/static/v1?label=Built%20with&message=nix&color=blue&style=flat&logo=nixos&link=https://nixos.org&labelColor=111212)
 [![built with garnix](https://img.shields.io/endpoint?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fghostbuster91%2Fnix-metals%3Fbranch%3Dnightly)](https://garnix.io)
 
